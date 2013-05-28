@@ -69,14 +69,22 @@
       });
       return $('.sidebar-check-char').each(function() {
         return $(this).on('change', function() {
-          var m;
+          var k, m, v;
           m = $(this).attr('id').match(/char_([0-9]+)_([0-9]+)/);
           if ($(this).is(':checked')) {
             Characters[$(this).attr('id')] = blazons[parseInt(m[1])]['characters'][parseInt(m[2])];
           } else {
             delete Characters[$(this).attr('id')];
           }
-          return console.log(Characters);
+          return console.log((function() {
+            var _results;
+            _results = [];
+            for (v in Characters) {
+              k = Characters[v];
+              _results.push(k);
+            }
+            return _results;
+          })());
         });
       });
     };

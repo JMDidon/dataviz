@@ -39,7 +39,7 @@ $ ->
         m = $(@).attr('id').match /char_([0-9]+)_([0-9]+)/
         if $(@).is ':checked' then Characters[$(@).attr('id')] = blazons[parseInt(m[1])]['characters'][parseInt(m[2])] else delete Characters[$(@).attr('id')]
         #********** SEND DATA BELOW **********#
-        console.log Characters
+        console.log ( k for v, k of Characters )
         
 
 
