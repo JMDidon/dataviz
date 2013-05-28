@@ -1,26 +1,38 @@
 $ ->
-  # setup
+  
+  # Setup
+  # ----------------------------------------
   $.ajaxSetup async:false
   characters = blazons = moves = output = []
   sidebar = $ '#sidebar-wrapper'
   filter = $ '#sidebar-filter'
   toggler = $ '#sidebar-toggler'
   
-  # helpers
+  
+  
+  # Helpers
+  # ----------------------------------------
   Array.prototype.find = (k, v) -> @.filter (e,i) -> e[k] is v
   timeout = (t, c) -> setTimeout c, t
   
-  # templates
+  
+  
+  # Templates
+  # ----------------------------------------
   blazonTPL = (v) -> '<li class="sidebar-item-blazon"><strong><label><input type="checkbox" id="blazon_'+v.i+'" class="sidebar-check-blazon">'+v.name+'</label></strong><ul></ul></li>'
   charTPL = (v) -> '<li class="sidebar-item-char"><label><input type="checkbox" id="char_'+v.i+'_'+v.j+'" class="sidebar-check-char" data-name="'+v.name+'">'+v.name+'</label></li>'
   
+  
+  
+  # Functions
+  # ----------------------------------------
   # get items
   sortItems = ->
     blazons.sort ( (a,b) -> a['name'] > b['name'] )
     for b in blazons
       b['characters'] = []
       for c in characters
-        b['characters'].push c if c['blazon'] is b['name']
+        b['characters'].push c if ( $.inArray b['name'], ( $.map c['blazon'].split(','), $.trim ) ) isnt -1
       b['characters'].sort ( (a,b) -> a['name'] > b['name'] )
     blazons = blazons.filter ( (e, i) -> e['characters'].length )
     
@@ -71,11 +83,11 @@ $ ->
     $('.sidebar-check-blazon').each -> 
       @.checked = v
       do $(@).change
-  toggler.on 'click', toggleAll 
         
         
         
-  # initialize
+  # Initialize
+  # ----------------------------------------
   $.get 'api/get/characters', (d) -> characters = JSON.parse(d)
   $.get 'api/get/blazons', (d) -> blazons = JSON.parse(d)
   $.get 'api/get/moves', (d) -> moves = JSON.parse(d)
@@ -84,4 +96,6 @@ $ ->
   do updateSidebar
   do setCheckboxes
   do setFilter
+  
+  toggler.on 'click', toggleAll 
   do toggleAll

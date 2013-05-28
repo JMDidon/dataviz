@@ -34,7 +34,7 @@
         b['characters'] = [];
         for (_j = 0, _len1 = characters.length; _j < _len1; _j++) {
           c = characters[_j];
-          if (c['blazon'] === b['name']) {
+          if (($.inArray(b['name'], $.map(c['blazon'].split(','), $.trim))) !== -1) {
             b['characters'].push(c);
           }
         }
@@ -143,7 +143,6 @@
         return $(this).change();
       });
     };
-    toggler.on('click', toggleAll);
     $.get('api/get/characters', function(d) {
       return characters = JSON.parse(d);
     });
@@ -157,6 +156,7 @@
     updateSidebar();
     setCheckboxes();
     setFilter();
+    toggler.on('click', toggleAll);
     return toggleAll();
   });
 
