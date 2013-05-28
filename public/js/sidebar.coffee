@@ -1,4 +1,8 @@
 $ ->
+  # array find helper
+  Array.prototype.find = (k, v) -> @.filter (e,i) -> e[k] is v
+  
+  # elements
   sidebar = $ '#sidebar-wrapper'
   sidebarFilter = $ '#sidebar-filter'
   Characters = []
@@ -25,9 +29,18 @@ $ ->
       $( charTPL { i: i, j: j, name: char['name'] } ).appendTo blazon_item.children('ul') for char, j in blazon['characters']
       blazon_item.appendTo sidebar
     items
+    
+  # merge moves on a character
+  mergeMoves = (moves) ->
+    for v, k of Characters
+      continue if typeof k isnt 'object'
+      move = ( moves.find 'name', k['name'] )
+      delete move[0]['name']
+      delete move[0]['find']
+      k['moves'] = ( j for i, j of move[0] )
       
   # set checkboxes
-  setCheckboxes = (blazons) ->
+  setCheckboxes = (blazons, moves) ->
     $('.sidebar-check-blazon').each -> 
       $(@).on 'change', -> 
         v = $(@).is ':checked'
@@ -39,14 +52,16 @@ $ ->
         m = $(@).attr('id').match /char_([0-9]+)_([0-9]+)/
         if $(@).is ':checked' then Characters[$(@).attr('id')] = blazons[parseInt(m[1])]['characters'][parseInt(m[2])] else delete Characters[$(@).attr('id')]
         #********** SEND DATA BELOW **********#
-        console.log ( k for v, k of Characters )
+        mergeMoves moves
+        console.log Characters
         
 
 
   # initialize
   initialize = (characters, blazons) ->
     blazons = updateSidebar characters, blazons
-    setCheckboxes blazons
+    $.get 'api/get/moves', (moves) ->
+      setCheckboxes blazons, JSON.parse(moves)
     
     
   # get data
