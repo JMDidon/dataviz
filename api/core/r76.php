@@ -47,9 +47,9 @@
   # Call the callback file|function|method
     function run($default = false) {
       if (is_string($this->callback)) $this->callback = array_map(array(__CLASS__, 'cleanPath'), explode(';', $this->callback));
-      if (!$this->call($this->callback) AND $default !== false) { 
-        $this->callback = $default; 
-        return $this->run(); 
+      if (!$this->call($this->callback)
+        if ($default !== false) { $this->callback = $default; return $this->run(); }
+        else throw new Exception('Run — Unknown callback: '.$this->callback);
       }
       return ob_end_flush();
     }
@@ -112,7 +112,7 @@
           if (!class_exists($m[1]) OR !is_callable($f = array(new $m[1], $m[3]))) return false;
           call_user_func_array($f, (array)$args);
         } else return false;
-      } else throw new Exception('Call — Unknown callback: '.$f);
+      } else return false;
       return true;
     }
 
