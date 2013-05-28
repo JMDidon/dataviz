@@ -47,7 +47,7 @@
   # Call the callback file|function|method
     function run($default = false) {
       if (is_string($this->callback)) $this->callback = array_map(array(__CLASS__, 'cleanPath'), explode(';', $this->callback));
-      if (!$this->call($this->callback)
+      if (!$this->call($this->callback)) {
         if ($default !== false) { $this->callback = $default; return $this->run(); }
         else throw new Exception('Run — Unknown callback: '.$this->callback);
       }
