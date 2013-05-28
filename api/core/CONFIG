@@ -1,0 +1,22 @@
+# System
+  LOAD    core
+
+
+# Routes
+  ROUTE   GET       /               get
+  ROUTE   GET       /get/@sheet     get
+  ROUTE   GET       /update         update
+
+
+# Constants
+  DEFINE  cache         core/cache/
+  DEFINE  typekit       xxx
+  DEFINE  ganalytics    xxx
+  DEFINE  pass          d033e22ae348aeb5660fc2140aec35850c4da997
+
+
+# Sheets
+  CUSTOM  sheets::set   moves         https://docs.google.com/spreadsheet/pub?key=0AqZKrXZuLhp-dDdvakpiejdSY1pHVFkyZ2FydVpmTkE&single=true&gid=0&output=csv
+  CUSTOM  sheets::set   characters    https://docs.google.com/spreadsheet/pub?key=0AqZKrXZuLhp-dDdvakpiejdSY1pHVFkyZ2FydVpmTkE&single=true&gid=4&output=csv
+  CUSTOM  sheets::set   episodes      https://docs.google.com/spreadsheet/pub?key=0AqZKrXZuLhp-dDdvakpiejdSY1pHVFkyZ2FydVpmTkE&single=true&gid=5&output=csv
+  CUSTOM  sheets::set   blazons       https://docs.google.com/spreadsheet/pub?key=0AqZKrXZuLhp-dDdvakpiejdSY1pHVFkyZ2FydVpmTkE&single=true&gid=7&output=csv

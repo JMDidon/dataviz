@@ -73,3 +73,8 @@
 		$('#identifier').text('S0'+season+'E'+episode);
 		console.log('S0'+season+'E'+episode);
 	}
+	
+	
+	
+// Launch
+  initialize();

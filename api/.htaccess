@@ -1,0 +1,12 @@
+<IfModule mod_rewrite.c>
+# URL-Rewriting
+  RewriteEngine on 
+
+# Deny access to site/
+  RewriteRule ^core/(.*) error [R=301,L]
+
+# Rewrite any request to index
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^.*  index.php  [L]
+</IfModule>
