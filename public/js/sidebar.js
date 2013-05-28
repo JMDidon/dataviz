@@ -2,14 +2,14 @@
 (function() {
 
   $(function() {
-    var Characters, blazonTPL, charTPL, getItems, initialize, mergeMoves, setCheckboxes, sidebar, sidebarFilter, updateSidebar;
+    var Characters, blazonTPL, charTPL, filter, getItems, initialize, mergeMoves, setCheckboxes, setFilter, sidebar, updateSidebar;
     Array.prototype.find = function(k, v) {
       return this.filter(function(e, i) {
         return e[k] === v;
       });
     };
     sidebar = $('#sidebar-wrapper');
-    sidebarFilter = $('#sidebar-filter');
+    filter = $('#sidebar-filter');
     Characters = [];
     getItems = function(characters, blazons) {
       var b, c, _i, _j, _len, _len1;
@@ -37,10 +37,11 @@
       return '<li class="sidebar-item-blazon"><strong><label><input type="checkbox" id="blazon_' + v.i + '" class="sidebar-check-blazon">' + v.name + '</label></strong><ul></ul></li>';
     };
     charTPL = function(v) {
-      return '<li><label><input type="checkbox" id="char_' + v.i + '_' + v.j + '" class="sidebar-check-char">' + v.name + '</label></li>';
+      return '<li class="sidebar-item-char"><label><input type="checkbox" id="char_' + v.i + '_' + v.j + '" class="sidebar-check-char" data-name="' + v.name + '">' + v.name + '</label></li>';
     };
     updateSidebar = function(characters, blazons) {
       var blazon, blazon_item, char, i, items, j, _i, _j, _len, _len1, _ref;
+      sidebar.html('');
       items = getItems(characters, blazons);
       for (i = _i = 0, _len = items.length; _i < _len; i = ++_i) {
         blazon = items[i];
@@ -70,6 +71,9 @@
           continue;
         }
         move = moves.find('name', k['name']);
+        if (!move.length) {
+          continue;
+        }
         delete move[0]['name'];
         delete move[0]['find'];
         _results.push(k['moves'] = (function() {
@@ -86,34 +90,49 @@
       return _results;
     };
     setCheckboxes = function(blazons, moves) {
-      $('.sidebar-check-blazon').each(function() {
-        return $(this).on('change', function() {
-          var v;
-          v = $(this).is(':checked');
-          return $(this).parents('.sidebar-item-blazon').find('input').not(this).each(function() {
-            this.checked = v;
-            return $(this).change();
-          });
+      var token;
+      $('.sidebar-check-blazon').on('change', function() {
+        var v;
+        v = $(this).is(':checked');
+        return $(this).parents('.sidebar-item-blazon').find('input').not(this).each(function() {
+          this.checked = v;
+          return $(this).change();
         });
       });
-      return $('.sidebar-check-char').each(function() {
-        return $(this).on('change', function() {
-          var m;
-          m = $(this).attr('id').match(/char_([0-9]+)_([0-9]+)/);
-          if ($(this).is(':checked')) {
-            Characters[$(this).attr('id')] = blazons[parseInt(m[1])]['characters'][parseInt(m[2])];
-          } else {
-            delete Characters[$(this).attr('id')];
-          }
+      token = false;
+      return $('.sidebar-check-char').on('change', function() {
+        var m;
+        m = $(this).attr('id').match(/char_([0-9]+)_([0-9]+)/);
+        if ($(this).is(':checked')) {
+          Characters[$(this).attr('id')] = blazons[parseInt(m[1])]['characters'][parseInt(m[2])];
+        } else {
+          delete Characters[$(this).attr('id')];
+        }
+        clearTimeout(token);
+        return token = setTimeout((function() {
           mergeMoves(moves);
           return console.log(Characters);
+        }), 100);
+      });
+    };
+    setFilter = function(characters, blazons) {
+      return filter.on('keyup', function() {
+        var v;
+        v = this.value.toLowerCase();
+        return $('.sidebar-check-char').each(function() {
+          var parent;
+          parent = $(this).parents('.sidebar-item-char').hide();
+          if (this.dataset.name.toLowerCase().indexOf(v) > -1) {
+            return $(this).parents('.sidebar-item-char').show();
+          }
         });
       });
     };
     initialize = function(characters, blazons) {
       blazons = updateSidebar(characters, blazons);
       return $.get('api/get/moves', function(moves) {
-        return setCheckboxes(blazons, JSON.parse(moves));
+        setCheckboxes(blazons, JSON.parse(moves));
+        return setFilter(characters, blazons);
       });
     };
     return $.get('api/get/characters', function(characters) {
