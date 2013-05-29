@@ -12,7 +12,7 @@ $ ->
   
   # Helpers
   # ----------------------------------------
-  Array.prototype.find = (k, v) -> @.filter (e,i) -> e[k] is v
+  find = (a, k, v) -> a.filter (e,i) -> e[k] is v
   timeout = (t, c) -> setTimeout c, t
   
   
@@ -45,14 +45,14 @@ $ ->
     
   # merge moves on a character
   getOutput = ->
-    for v, k of output
-      continue if typeof k isnt 'object'
-      move = ( moves.find 'name', k['name'] )
+    for k, v of output
+      continue if typeof v isnt 'object'
+      move = find moves, 'name', v['name']
       continue if not move.length
       delete move[0]['name']
       delete move[0]['find']
-      k['moves'] = ( j for i, j of move[0] )
-    output
+      v['moves'] = ( j for i, j of move[0] )
+    v for k, v of output
       
   # set checkboxes
   setCheckboxes = ->
