@@ -5,7 +5,7 @@ $ ->
   $.ajaxSetup async:false
   characters = blazons = moves = output = []
   sidebar = $ '#sidebar-wrapper'
-  filter = $ '#sidebar-filter'
+  filter  = $ '#sidebar-filter'
   toggler = $ '#sidebar-toggler'
   
   
@@ -63,7 +63,11 @@ $ ->
         do $(@).change
     token = false
     $('.sidebar-check-char').on 'change', -> 
-      $(@).parents('.sidebar-item-blazon').find('.sidebar-check-blazon').attr('checked', false) if $(@).is ':not(:checked)'
+      parent      = $(@).parents '.sidebar-item-blazon'
+      checkBlazon = parent.find '.sidebar-check-blazon'
+      checkChars  = parent.find '.sidebar-check-char' 
+      checkBlazon.attr('checked', false) if $(@).is ':not(:checked)'
+      checkBlazon.click() if checkBlazon.is(':not(:checked)') and checkChars.filter(':checked').length is checkChars.length
       m = $(@).attr('id').match /char_([0-9]+)_([0-9]+)/
       if $(@).is ':checked' then output[$(@).attr('id')] = blazons[parseInt(m[1])]['characters'][parseInt(m[2])] else delete output[$(@).attr('id')]
       clearTimeout token
@@ -89,8 +93,8 @@ $ ->
   # Initialize
   # ----------------------------------------
   $.get 'api/get/characters', (d) -> characters = JSON.parse(d)
-  $.get 'api/get/blazons', (d) -> blazons = JSON.parse(d)
-  $.get 'api/get/moves', (d) -> moves = JSON.parse(d)
+  $.get 'api/get/blazons',    (d) -> blazons    = JSON.parse(d)
+  $.get 'api/get/moves',      (d) -> moves      = JSON.parse(d)
   
   do sortItems
   do updateSidebar
