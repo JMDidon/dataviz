@@ -32,7 +32,7 @@ $ ->
     for b in blazons
       b['characters'] = []
       for c in characters
-        b['characters'].push c if ( $.inArray b['name'], ( $.map c['blazon'].split(','), $.trim ) ) isnt -1
+        b['characters'].push c if c['blazon'] is b['name']
       b['characters'].sort ( (a,b) -> a['name'] > b['name'] )
     blazons = blazons.filter ( (e, i) -> e['characters'].length )
     
@@ -74,8 +74,8 @@ $ ->
     filter.on 'keyup', -> 
       v = @.value.toLowerCase()
       $('.sidebar-check-char').each ->
-        parent = $(@).parents('.sidebar-item-char').hide()
-        do $(@).parents('.sidebar-item-char').show if @.dataset.name.toLowerCase().indexOf(v) > -1
+        parent = $(@).parents('.sidebar-item-char')
+        if @.dataset.name.toLowerCase().indexOf(v) > -1 then do parent.slideDown else do parent.slideUp
     
   # select/deselect all
   toggleAll = ->
