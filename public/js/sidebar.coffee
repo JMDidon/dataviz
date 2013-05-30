@@ -20,7 +20,7 @@ $ ->
   # Templates
   # ----------------------------------------
   houseTPL = (v) -> '<li class="sidebar-item-house"><strong><label><input type="checkbox" id="house_'+v.i+'" class="sidebar-check-house">'+v.name+'</label></strong><ul></ul></li>'
-  charTPL  = (v) -> '<li class="sidebar-item-char"><label><input type="checkbox" id="char_'+v.i+'_'+v.j+'" class="sidebar-check-char" data-name="'+v.name+'">'+v.name+'</label></li>'
+  charTPL  = (v) -> '<li class="sidebar-item-char"><label><input type="checkbox" id="char_'+v.i+'_'+v.j+'" class="sidebar-check-char" data-name="'+v.name+'">'+v.name+' <img src="https://drive.google.com/uc?export=download&confirm=no_antivirus&id='+v.img+'" width="20" height="20"></label></li>'
   
   
   
@@ -41,7 +41,7 @@ $ ->
   updateSidebar = ->
     for h, i in houses
       house_item = $ houseTPL { i: i, name: h['name'] }
-      $( charTPL { i: i, j: j, name: c['name'] } ).appendTo house_item.children('ul') for c, j in h['characters']
+      $( charTPL { i: i, j: j, name: c['name'], img: c['image'] } ).appendTo house_item.children('ul') for c, j in h['characters']
       house_item.appendTo sidebar
     
   # merge moves on a character

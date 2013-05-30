@@ -22,7 +22,7 @@
       return '<li class="sidebar-item-house"><strong><label><input type="checkbox" id="house_' + v.i + '" class="sidebar-check-house">' + v.name + '</label></strong><ul></ul></li>';
     };
     charTPL = function(v) {
-      return '<li class="sidebar-item-char"><label><input type="checkbox" id="char_' + v.i + '_' + v.j + '" class="sidebar-check-char" data-name="' + v.name + '">' + v.name + '</label></li>';
+      return '<li class="sidebar-item-char"><label><input type="checkbox" id="char_' + v.i + '_' + v.j + '" class="sidebar-check-char" data-name="' + v.name + '">' + v.name + ' <img src="https://drive.google.com/uc?export=download&confirm=no_antivirus&id=' + v.img + '" width="20" height="20"></label></li>';
     };
     sortItems = function() {
       var c, h, sort, _i, _j, _len, _len1;
@@ -60,7 +60,8 @@
           $(charTPL({
             i: i,
             j: j,
-            name: c['name']
+            name: c['name'],
+            img: c['image']
           })).appendTo(house_item.children('ul'));
         }
         _results.push(house_item.appendTo(sidebar));
