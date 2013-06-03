@@ -1,11 +1,50 @@
+window.addEventListener('DOMContentLoaded', initialize, false);
+
+
+var retrieved_data 			= {};
+retrieved_data.moves 		= {};
+retrieved_data.blazons 		= {};
+retrieved_data.episodes 	= {};
+retrieved_data.characters 	= {};
+
+
+/* Chargement des infos des épisodes */
+	$.get('api/get/moves', function(data)
+	{
+		retrieved_data.moves = JSON.parse(data);
+		console.log(retrieved_data.moves);
+	});
+
+	$.get('api/get/blazons', function(data)
+	{
+		retrieved_data.blazons = JSON.parse(data);
+		console.log(retrieved_data.blazons);
+	});
+
+	$.get('api/get/episodes', function(data)
+	{
+		retrieved_data.episodes = JSON.parse(data);
+		console.log(retrieved_data.episodes);
+	});
+
+	$.get('api/get/characters', function(data)
+	{
+		retrieved_data.characters = JSON.parse(data);
+		console.log(retrieved_data.characters);
+	});
+
+
+
+
 /* Chargement de la timeline */
 	function initialize()
 	{
 		var screenWidth = screen.width;
 		var graduations = Math.round(screenWidth/28);
-		console.log(graduations);
 		var initial_position = $('#cursor_begin').offset().left;
+		var episodeFound;
 		initial_position = Math.round(initial_position);
+		console.log(graduations);
 
 		var posX, posY, offset;
 		$('#cursor_begin').draggable(
@@ -13,6 +52,7 @@
 	    	grid: [graduations, 0],
 	    	snap: true,
 	    	snapMode: 'both',
+	    	containment: 'html',
 	        drag: function(){
 	            offset = $(this).offset();
 
@@ -26,8 +66,13 @@
 
 	            findEpisode(initial_position, posX, graduations);          
 	        }
-	    });	    
+	    });
+
+	    //getInfosEpisode(episodeFound);    
 	}
+
+
+
 
 /* Canvas */
 	function changePersonagePosition()
@@ -55,6 +100,9 @@
 		}
 	}
 
+
+
+
 /* Find episode */
 	function findEpisode(initial_position, posX, graduations)
 	{
@@ -71,10 +119,6 @@
 			}
 		}
 		$('#identifier').text('S0'+season+'E'+episode);
-		console.log('S0'+season+'E'+episode);
+		var episodeFound = 'S0'+season+'E'+episode;
+		return episodeFound;
 	}
-	
-	
-	
-// Launch
-  initialize();
