@@ -3,7 +3,8 @@ window.addEventListener('DOMContentLoaded', initialize, false);
 
 var retrieved_data 			= {};
 retrieved_data.moves 		= {};
-retrieved_data.blazons 		= {};
+retrieved_data.houses 		= {};
+retrieved_data.places 		= {};
 retrieved_data.episodes 	= {};
 retrieved_data.characters 	= {};
 
@@ -15,10 +16,16 @@ retrieved_data.characters 	= {};
 		console.log(retrieved_data.moves);
 	});
 
-	$.get('api/get/blazons', function(data)
+	$.get('api/get/houses', function(data)
 	{
-		retrieved_data.blazons = JSON.parse(data);
-		console.log(retrieved_data.blazons);
+		retrieved_data.houses = JSON.parse(data);
+		console.log(retrieved_data.houses);
+	});
+
+	$.get('api/get/places', function(data)
+	{
+		retrieved_data.places = JSON.parse(data);
+		console.log(retrieved_data.places);
 	});
 
 	$.get('api/get/episodes', function(data)
@@ -40,6 +47,7 @@ retrieved_data.characters 	= {};
 	function initialize()
 	{
 		var screenWidth = screen.width;
+		console.log(screenWidth);
 		var graduations = Math.floor(screenWidth/30);
 		var initial_position = $('#cursor_begin').offset().left;
 		var episodeFound;
