@@ -4,4 +4,4 @@ a img { border: 0; }
 img { max-width: 100%; height: auto; }
 html { font-size: 62.5%; } /* 1em = 10px */
 
-/* body { font-size: 1.6em; } Example */
+body { font-size: 1.6em; }
