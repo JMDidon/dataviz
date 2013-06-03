@@ -40,7 +40,7 @@ retrieved_data.characters 	= {};
 	function initialize()
 	{
 		var screenWidth = screen.width;
-		var graduations = Math.round(screenWidth/28);
+		var graduations = Math.floor(screenWidth/30);
 		var initial_position = $('#cursor_begin').offset().left;
 		var episodeFound;
 		initial_position = Math.round(initial_position);
@@ -106,7 +106,7 @@ retrieved_data.characters 	= {};
 /* Find episode */
 	function findEpisode(initial_position, posX, graduations)
 	{
-		var episode = ((posX - initial_position)/graduations)+1;
+		var episode = compteur = ((posX - initial_position)/graduations)+1;
 		var season  = 1;
 		if (episode >= 10)
 		{
