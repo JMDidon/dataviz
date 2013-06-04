@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head lang="fr">
+  <title>Game of Thrones</title>
+  <style>*{margin:0;padding:0;}div{position:absolute;top:40px;left:40px;padding:10px;background:black;color:white}</style>
+</head>
+<body>
+  <div>move</div>
+  <img src="map.jpg">
+  <script>
+    var w, img = document.querySelector('img'), div = document.querySelector('div');
+    img.addEventListener('load', function() { w = img.clientWidth });
+    window.addEventListener('mousemove', function(e) {
+      div.innerHTML = 'x:'+Math.round(e.x/w*100)+' y:'+Math.round(e.y/w*100);
+    });
+  </script>
+  
+</body>
+</html>
