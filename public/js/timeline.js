@@ -83,7 +83,7 @@ var retrieved_data 				= {};
 		            	// On teste la valeur de posX du début par rapport à la fin
 		            	$('#posBegin').text('Begin: '+posX);
 		            	cursor_begin.setAttribute('data-posX', posX);
-		            	if(parseInt(cursor_begin.getAttribute('data-posX')) >= parseInt(cursor_end.getAttribute('data-posX')))
+		            	if(parseInt(cursor_begin.getAttribute('data-posX'))+graduations > parseInt(cursor_end.getAttribute('data-posX')))
 		            	{
 		            		return false;
 		            	}
@@ -99,7 +99,7 @@ var retrieved_data 				= {};
 		        		// Idem pour le curseur de fin
 		            	$('#posEnd').text('End: '+posX);
 		            	cursor_end.setAttribute('data-posX', posX);
-		            	if(parseInt(cursor_begin.getAttribute('data-posX')) <= parseInt(cursor_end.getAttribute('data-posX')))
+		            	if(parseInt(cursor_end.getAttribute('data-posX')) < parseInt(cursor_begin.getAttribute('data-posX'))+graduations)
 		            	{
 		            		return false;
 		            	}
@@ -108,8 +108,7 @@ var retrieved_data 				= {};
 		            		findLastEpisode(initial_position_end, posX, graduations);
 		            	}
 		            	// End if
-		            }
-		            // End if
+		            } // End if
 		        } // End drag
 		    }); // End draggable
 	}

@@ -3,7 +3,7 @@ body
 	width : 90%;
 	margin: 0 auto;
 	font-family : "Roboto";
-	background-color: #f2f2f2;
+	background-color: #F2F2F2;
 }
 
 .wrapper 
@@ -15,12 +15,26 @@ body
 
 .draggable
 {
-	position: absolute;
-	bottom: 0;
-	left: 0;
 	width: 0px;
 	height: 0px;
 	border-style: solid;
 	border-width: 37.5px 37.5px 0 37.5px;
 	border-color: #007bff transparent transparent transparent;
+	cursor: pointer;
+}
+
+#cursor_begin
+{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	border-color: #007BFF transparent transparent transparent;
+}
+
+#cursor_end
+{
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	border-color: #FF2A00 transparent transparent transparent;
 }
