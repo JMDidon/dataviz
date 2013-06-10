@@ -2,9 +2,11 @@
 <html>
 <head lang="fr">
   <title>Game of Thrones</title>
- <script src="../test_interface/ynnjs.js"></script>
+<!--  // <script src="../test_interface/ynnjs.js"></script> -->
   <style>*{margin:0;padding:0;}div{position:absolute;top:40px;left:40px;padding:10px;background:black;color:white}
   </style>
+  <script src=//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js></script>
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 </head>
 <style>
 
@@ -29,14 +31,14 @@
 
 </style>
 <body>
-   <div>move</div>
-  <img src="map.jpg">
+   <!-- <div>move</div> -->
+ <!--  <img src="map.jpg"> -->
   <script>
-    var w, img = document.querySelector('img'), div = document.querySelector('div');
-    img.addEventListener('load', function() { w = img.clientWidth });
-    window.addEventListener('mousemove', function(e) {
-      div.innerHTML = 'x:'+Math.round(e.x/w*100)+' y:'+Math.round(e.y/w*100);
-    });
+  //   var w, img = document.querySelector('img'), div = document.querySelector('div');
+  //   img.addEventListener('load', function() { w = img.clientWidth });
+  //   window.addEventListener('mousemove', function(e) {
+  //     div.innerHTML = 'x:'+Math.round(e.x/w*100)+' y:'+Math.round(e.y/w*100);
+  //   });
   </script>
   <script src="http://d3js.org/d3.v3.min.js"></script>
   
@@ -57,22 +59,32 @@ var svg = d3.select("body")
 
     //appel JSON
 
+// var data; // a global
+
+// d3.json("../api/get/places", function(error, json) {
+//   if (error) return console.warn(error);
+//   data = json;
+//   visualizeit();
+
+
 d3.json("../api/get/places", function(error, graph) {
 
-  graph.links.forEach(function(d) {
-    d.source = graph.nodes[d.source];
-    d.target = graph.nodes[d.target];
+console.log(graph); 
+$.each(graph.links,function(index,value){
+  // graph.links.forEach(function(d) {
+    value.source = graph.nodes[value.source];
+    value.target = graph.nodes[value.target];
   });
-
+});
   var link = svg.append("g")
       .attr("class", "link")
     .selectAll("line")
       .data(graph.links)
     .enter().append("line")
-      .attr("x1", function(d) { return d.source.x; })
-      .attr("y1", function(d) { return d.source.y; })
-      .attr("x2", function(d) { return d.target.x; })
-      .attr("y2", function(d) { return d.target.y; });
+      .attr("x1", function(value) { return value.source.x; })
+      .attr("y1", function(value) { return value.source.y; })
+      .attr("x2", function(value) { return value.target.x; })
+      .attr("y2", function(value) { return value.target.y; });
 
   var brush = svg.append("g")
       .datum(function() { return {selected: false, previouslySelected: false}; })
@@ -80,15 +92,15 @@ d3.json("../api/get/places", function(error, graph) {
       .call(d3.svg.brush()
         .x(d3.scale.identity().domain([0, width]))
         .y(d3.scale.identity().domain([0, height]))
-        .on("brushstart", function(d) {
-          node.each(function(d) { d.previouslySelected = shiftKey && d.selected; });
+        .on("brushstart", function(value) {
+          node.each(function(value) { value.previouslySelected = shiftKey && value.selected; });
         })
         .on("brush", function() {
           var extent = d3.event.target.extent();
-          node.classed("selected", function(d) {
-            return d.selected = d.previouslySelected ^
-                (extent[0][0] <= d.x && d.x < extent[1][0]
-                && extent[0][1] <= d.y && d.y < extent[1][1]);
+          node.classed("selected", function(value) {
+            return d.selected = value.previouslySelected ^
+                (extent[0][0] <= value.x && value.x < extent[1][0]
+                && extent[0][1] <= value.y && value.y < extent[1][1]);
           });
         })
         .on("brushend", function() {
@@ -102,13 +114,15 @@ d3.json("../api/get/places", function(error, graph) {
       .data(graph.nodes)
     .enter().append("circle")
       .attr("r", 4)
-      .attr("cx", function(d) { return d.x; })
-      .attr("cy", function(d) { return d.y; })
-      .on("mousedown", function(d) {
-        if (shiftKey) d3.select(this).classed("selected", d.selected = !d.selected);
-        else node.classed("selected", function(p) { return p.selected = d === p; });
+      .attr("cx", function(value) { return value.x; })
+      .attr("cy", function(value) { return value.y; })
+      .on("mousedown", function(value) {
+        if (shiftKey) d3.select(this).classed("selected", value.selected = !value.selected);
+        else node.classed("selected", function(p) { return p.selected = value === p; });
       });
+
 });
+
 
 function keyflip() {
   shiftKey = d3.event.shiftKey || d3.event.metaKey;
