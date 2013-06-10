@@ -2,6 +2,7 @@
 <html>
 <head lang="fr">
   <title>Game of Thrones</title>
+ <script src="../test_interface/ynnjs.js"></script>
   <style>*{margin:0;padding:0;}div{position:absolute;top:40px;left:40px;padding:10px;background:black;color:white}
   </style>
 </head>
@@ -28,7 +29,7 @@
 
 </style>
 <body>
-  <div>move</div>
+   <div>move</div>
   <img src="map.jpg">
   <script>
     var w, img = document.querySelector('img'), div = document.querySelector('div');
@@ -38,6 +39,7 @@
     });
   </script>
   <script src="http://d3js.org/d3.v3.min.js"></script>
+  
 <script>
 
 var width = 960,
@@ -52,6 +54,8 @@ var svg = d3.select("body")
   .append("svg")
     .attr("width", width)
     .attr("height", height);
+
+    //appel JSON
 
 d3.json("test.json", function(error, graph) {
 
@@ -111,7 +115,6 @@ function keyflip() {
 }
 
 </script>
-
   
 </body>
 </html>
