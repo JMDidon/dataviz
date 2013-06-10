@@ -57,7 +57,7 @@ var svg = d3.select("body")
 
     //appel JSON
 
-d3.json("test.json", function(error, graph) {
+d3.json("../api/get/places", function(error, graph) {
 
   graph.links.forEach(function(d) {
     d.source = graph.nodes[d.source];
