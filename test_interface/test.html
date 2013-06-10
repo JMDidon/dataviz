@@ -70,12 +70,12 @@ var svg = d3.select("body")
 d3.json("../api/get/places", function(error, graph) {
 
 console.log(graph); 
-$.each(graph.links,function(index,value){
+$.each([graph.links],function(index,value){
   // graph.links.forEach(function(d) {
     value.source = graph.nodes[value.source];
     value.target = graph.nodes[value.target];
   });
-});
+
   var link = svg.append("g")
       .attr("class", "link")
     .selectAll("line")
