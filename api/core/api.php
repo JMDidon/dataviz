@@ -1,6 +1,7 @@
 <?php
 # Get JSON data
   function get() {
+    header('Content-Type: application/json');
     if (!in_array(path('sheet'), array_keys(sheets::getAll()))) exit(false);
     echo json_encode(sheets::load(path('sheet')));
   }
