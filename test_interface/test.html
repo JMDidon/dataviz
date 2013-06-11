@@ -68,18 +68,18 @@ var svg = d3.select("body")
 
 
 d3.json("../api/get/places", function(error, graph) {
-
-console.log(graph); 
-$.each([graph.links],function(index,value){
+console.log(graph);
+// console.log(graph.links); 
+$.each(graph,function(index,value){
   // graph.links.forEach(function(d) {
-    value.source = graph.nodes[value.source];
-    value.target = graph.nodes[value.target];
-  });
+    // value.source = graph[index].source;
+    // value.target = graph[index].target;
+  // });
 
   var link = svg.append("g")
       .attr("class", "link")
     .selectAll("line")
-      .data(graph.links)
+      .data(graph)
     .enter().append("line")
       .attr("x1", function(value) { return value.source.x; })
       .attr("y1", function(value) { return value.source.y; })
