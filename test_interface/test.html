@@ -7,8 +7,8 @@
   </style>
   <script src=//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js></script>
   <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-</head>
-<style>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <style>
 
 .node {
   stroke: #fff;
@@ -30,6 +30,8 @@
 }
 
 </style>
+</head>
+  
 <body>
    <!-- <div>move</div> -->
  <!--  <img src="map.jpg"> -->
@@ -40,7 +42,7 @@
   //     div.innerHTML = 'x:'+Math.round(e.x/w*100)+' y:'+Math.round(e.y/w*100);
   //   });
   </script>
-  <script src="http://d3js.org/d3.v3.min.js"></script>
+  
   
 <script>
 
@@ -68,12 +70,14 @@ var svg = d3.select("body")
 
 
 d3.json("../api/get/places", function(error, graph) {
-console.log(graph);
+// console.log(graph);
 // console.log(graph.links); 
 $.each(graph,function(index,value){
-  // graph.links.forEach(function(d) {
-    // value.source = graph[index].source;
-    // value.target = graph[index].target;
+  // console.log(index)
+  console.log(value)
+  // graph.forEach(function(value) {
+    value.x = graph[index].source;
+    value.y = graph[index].target;
   // });
 
   var link = svg.append("g")
@@ -81,10 +85,10 @@ $.each(graph,function(index,value){
     .selectAll("line")
       .data(graph)
     .enter().append("line")
-      .attr("x1", function(value) { return value.source.x; })
-      .attr("y1", function(value) { return value.source.y; })
-      .attr("x2", function(value) { return value.target.x; })
-      .attr("y2", function(value) { return value.target.y; });
+      .attr("x1", function(value) { return value.x; })
+      .attr("y1", function(value) { return value.y; })
+      .attr("x2", function(value) { return value.x; })
+      .attr("y2", function(value) { return value.y; });
 
   var brush = svg.append("g")
       .datum(function() { return {selected: false, previouslySelected: false}; })
@@ -108,19 +112,20 @@ $.each(graph,function(index,value){
           d3.select(this).call(d3.event.target);
         }));
 
-  var node = svg.append("g")
-      .attr("class", "node")
-    .selectAll("circle")
-      .data(graph.nodes)
-    .enter().append("circle")
-      .attr("r", 4)
-      .attr("cx", function(value) { return value.x; })
-      .attr("cy", function(value) { return value.y; })
-      .on("mousedown", function(value) {
-        if (shiftKey) d3.select(this).classed("selected", value.selected = !value.selected);
-        else node.classed("selected", function(p) { return p.selected = value === p; });
-      });
+  // var node = svg.append("g")
+  //     .attr("class", "node")
+  //   .selectAll("circle")
+  //     .data(graph.nodes)
+  //   .enter().append("circle")
+  //     .attr("r", 4)
+  //     .attr("cx", function(value) { return value.x; })
+  //     .attr("cy", function(value) { return value.y; })
+  //     .on("mousedown", function(value) {
+  //       if (shiftKey) d3.select(this).classed("selected", value.selected = !value.selected);
+  //       else node.classed("selected", function(p) { return p.selected = value === p; });
+  //     });
 
+});
 });
 
 
