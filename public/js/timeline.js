@@ -44,39 +44,47 @@ var retrieved_data 				= {};
 /* Load timeline */
 	function initialize()
 	{
-		var initial_position_begin  = $('#cursor_begin').offset().left,
-			initial_position_end 	= $('#cursor_end').offset().left,
-			cursor_begin 			= document.getElementById('cursor_begin'),
-			cursor_end				= document.getElementById('cursor_end'),
-			screenWidth 			= screen.availWidth,
-			cursor_width			= cursor_begin.offsetWidth,
-			graduations 			= Math.floor((screenWidth-cursor_width)/28),
+		var position_begin  = $('#cursor_begin').offset().left,
+			position_end 	= $('#cursor_end').offset().left,
+			cursor_begin 	= document.getElementById('cursor_begin'),
+			cursor_end		= document.getElementById('cursor_end'),
+			//container		= document.getElementById('container'),
+			screenWidth 	= screen.availWidth,
+			cursor_width	= cursor_begin.offsetWidth,
+			//graduations 	= (screenWidth-cursor_width*2)/28,
+			graduations 	= (screenWidth-cursor_width)/28,
 			posX,
 			offset;
+
 	
 		// We find the position of each cursor and we save it in the attribute "data-posX" of each cursor
-			initial_position_begin  = Math.round(initial_position_begin);
-			initial_position_end	= Math.round(initial_position_end);
-			cursor_begin.setAttribute('data-posX', initial_position_begin);
-			cursor_end.setAttribute('data-posX', initial_position_end);
+			//position_begin  = Math.round(position_begin);
+			//position_end	= Math.round(position_end);
+			cursor_begin.setAttribute('data-posX', position_begin);
+			cursor_end.setAttribute('data-posX', position_end);
+		/*	container.style.width = screenWidth - cursor_width +'px';
+			container.style.height = cursor_begin.offsetHeight +'px';*/
 		
-			$('#posBegin').text('Begin: ' + initial_position_begin);
-			$('#posEnd').text('End: ' + initial_position_end);
+
+		// Variables à fins de tests, on pourra les enlever
+			$('#posBegin').text('Begin: ' + position_begin);
+			$('#posEnd').text('End: ' + position_end);
 
 		
 		// Make the cursors draggable
 			$('.draggable').draggable(
 		    {
 		    	grid: [graduations, 0],
+		    	axis: 'x',
 		    	snap: true,
 		    	snapMode: 'both',
-		    	containment: 'html',
+		    	containment: [10, 0, (screenWidth-cursor_width*2), 0],
 		    	cursor: 'pointer',
 		    	opacity: '0.5',
 		    	drag: function() {
 		    		offset = $(this).offset();
 		            posX = offset.left;
-		            posX = Math.round(posX);
+		            //posX = Math.round(posX);
 
 		            // We verify which cursor is being dragged
 			            if(this.getAttribute('id') == 'cursor_begin')
@@ -88,12 +96,13 @@ var retrieved_data 				= {};
 			            	// If that's the case, we push the second cursor.
 				            	if(parseInt(cursor_begin.getAttribute('data-posX')) >= parseInt(cursor_end.getAttribute('data-posX'))-graduations)
 					            {
-					            	document.getElementById('cursor_end').style.left = (posX+graduations)+'px';
-					            	cursor_end.setAttribute('data-posX', posX);
-					            	findLastEpisode(initial_position_end, posX, graduations);
+					            	pos_next = posX + graduations;
+					            	document.getElementById('cursor_end').style.left = (pos_next)+'px';
+					            	cursor_end.setAttribute('data-posX', pos_next);
+					            	findLastEpisode(position_end, pos_next, graduations);
 					            }
 					        // We'll find the next episode
-				            	findFirstEpisode(initial_position_begin, posX, graduations);
+				            	findFirstEpisode(position_begin, posX, graduations);
 			            }
 			            else
 			            {
@@ -101,11 +110,12 @@ var retrieved_data 				= {};
 			            	cursor_end.setAttribute('data-posX', posX);
 			            	if (parseInt(cursor_end.getAttribute('data-posX')) <= parseInt(cursor_begin.getAttribute('data-posX'))+graduations)
 				            {
-				            	document.getElementById('cursor_begin').style.left = (posX-graduations)+'px';
-				            	cursor_begin.setAttribute('data-posX', posX);
-				            	findFirstEpisode(initial_position_begin, posX, graduations);
+				            	pos_prev = posX - graduations;
+				            	document.getElementById('cursor_begin').style.left = (pos_prev)+'px';
+				            	cursor_begin.setAttribute('data-posX', pos_prev);
+				            	findFirstEpisode(position_begin, pos_prev, graduations);
 				            }
-				            findLastEpisode(initial_position_end, posX, graduations);
+				            findLastEpisode(position_end, posX, graduations);
 			            } // End If
 		        }   // End drag
 		    }); // End draggable
@@ -114,9 +124,10 @@ var retrieved_data 				= {};
 
 
 /* Find episodes */
-	function findFirstEpisode(initial_position, posX, graduations)
+	function findFirstEpisode(position, posX, graduations)
 	{
-		var episode = Math.floor(((posX - initial_position)/graduations)+1); 
+		var episode = Math.floor(((posX - position)/graduations)+1);
+		console.log(episode);
 		var season  = 1;
 		if (episode >= 11)
 		{
@@ -133,9 +144,9 @@ var retrieved_data 				= {};
 		return episodeFound;
 	}
 
-	function findLastEpisode(initial_position, posX, graduations)
+	function findLastEpisode(position, posX, graduations)
 	{
-		var episode = Math.floor(((posX - initial_position)/graduations)+10);
+		/*var episode = Math.floor(((posX - position)/graduations)+10);
 		var season  = 3;
 		if (episode < 1)
 		{
@@ -145,6 +156,22 @@ var retrieved_data 				= {};
 			{
 				season--;
 				episode = episode + 10;
+			}
+		}
+		$('#identifierEnd').text('Épisode de fin : S0'+season+'E'+episode);
+		var episodeFound = 'S0'+season+'E'+episode;
+		return episodeFound;*/
+		var episode = Math.floor((posX/graduations)+1);
+		console.log(episode);
+		var season  = 1;
+		if (episode >= 11)
+		{
+			season++;
+			episode = episode - 10;
+			if (episode >= 11)
+			{
+				season++;
+				episode = episode - 10;
 			}
 		}
 		$('#identifierEnd').text('Épisode de fin : S0'+season+'E'+episode);
