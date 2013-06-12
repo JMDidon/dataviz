@@ -1,0 +1,24 @@
+doctype 5
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    title Kingsroad.io — Game of Thrones moves
+    link(rel="stylesheet", href="public/min.css")
+    
+  body
+    
+    div.wrapper 
+      section.map-wrapper
+        div.map
+          div.map-canvas
+      
+      aside.sidebar
+        div.sidebar-item
+          label.hide(for="sidebar-filter") Filter
+          input#sidebar-filter(type="text")
+        div.sidebar-item
+          a#sidebar-toggler(href="#") Toggle all
+        ul#sidebar-wrapper.sidebar-values
+      
+    script(src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js")
+    script(src="public/min.js")

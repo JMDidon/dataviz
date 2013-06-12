@@ -1,0 +1,56 @@
+* 
+  -webkit-box-sizing: border-box
+  -moz-box-sizing: border-box
+  box-sizing: border-box
+  margin: 0
+  padding: 0
+      
+body
+  background: #000
+  
+.wrapper
+  position: fixed
+  top: 0
+  right: 0
+  left: 0
+  bottom: 0
+  background: #000
+  background: -moz-linear-gradient(-45deg,  #939393 0%, #939393 12%, #2a5caf 13%, #2a5caf 24%, #053583 25%, #053583 36%, #000000 37%, #000000 48%, #8e0308 49%, #8e0308 60%, #e4c543 61%, #e4c543 72%, #4a822a 73%, #4a822a 84%, #e38631 85%, #e38631 96%, #000000 97%, #000000 100%)
+  background: -webkit-linear-gradient(-45deg,  #939393 0%,#939393 12%,#2a5caf 13%,#2a5caf 24%,#053583 25%,#053583 36%,#000000 37%,#000000 48%,#8e0308 49%,#8e0308 60%,#e4c543 61%,#e4c543 72%,#4a822a 73%,#4a822a 84%,#e38631 85%,#e38631 96%,#000000 97%,#000000 100%)
+  background: linear-gradient(135deg,  #939393 0%,#939393 12%,#2a5caf 13%,#2a5caf 24%,#053583 25%,#053583 36%,#000000 37%,#000000 48%,#8e0308 49%,#8e0308 60%,#e4c543 61%,#e4c543 72%,#4a822a 73%,#4a822a 84%,#e38631 85%,#e38631 96%,#000000 97%,#000000 100%)
+
+  
+.map-wrapper
+  position: fixed
+  top: 4px
+  right: 254px
+  left: 4px
+  bottom: 4px
+  
+.map
+  position: relative
+  width: 100%
+  height: 100%
+  overflow: auto
+  background: #fff
+  &:after
+    content: ''
+    display: block
+    clear: both
+  
+.map-canvas
+  float: right
+  width: 977px
+  height: 650px
+  background: #fff url('map.png') no-repeat
+
+.sidebar
+  position: fixed
+  top: 4px
+  right: 4px
+  bottom: 4px
+  width: 250px
+  min-height: 700px
+  overflow: auto
+  background: #000
+  color: #fff

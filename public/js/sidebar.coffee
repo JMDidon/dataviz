@@ -3,7 +3,7 @@ $ ->
   # Setup
   # ----------------------------------------
   $.ajaxSetup async:false
-  characters = houses = moves = output = []
+  Characters = Houses = Moves = Places = Episodes = output = []
   sidebar = $ '#sidebar-wrapper'
   filter  = $ '#sidebar-filter'
   toggler = $ '#sidebar-toggler'
@@ -24,35 +24,35 @@ $ ->
   
   
   
-  # Functions
+  # Sidebar functions
   # ----------------------------------------
   # get items
   sortItems = ->
     sort = (a,b) -> a['name'] > b['name']
-    houses.sort sort
-    for h in houses
-      h['characters'] = []
-      for c in characters
-        h['characters'].push c if c['blazon'] is h['name']
-      h['characters'].sort sort
-    houses = houses.filter ( (e, i) -> e['characters'].length )
+    Houses.sort sort
+    for h in Houses
+      h['Characters'] = []
+      for c in Characters
+        h['Characters'].push c if c['blazon'] is h['name']
+      h['Characters'].sort sort
+    Houses = Houses.filter ( (e, i) -> e['Characters'].length )
     
   # update sidebar
   updateSidebar = ->
-    for h, i in houses
+    for h, i in Houses
       house_item = $ houseTPL { i: i, name: h['name'] }
-      $( charTPL { i: i, j: j, name: c['name'], img: c['image'] } ).appendTo house_item.children('ul') for c, j in h['characters']
+      $( charTPL { i: i, j: j, name: c['name'], img: c['image'] } ).appendTo house_item.children('ul') for c, j in h['Characters']
       house_item.appendTo sidebar
     
-  # merge moves on a character
+  # merge Moves on a character
   getOutput = ->
     for k, v of output
       continue if typeof v isnt 'object'
-      move = find moves, 'name', v['name']
+      move = find Moves, 'name', v['name']
       continue if not move.length
       delete move[0]['name']
       delete move[0]['find']
-      v['moves'] = ( j for i, j of move[0] )
+      v['Moves'] = ( j for i, j of move[0] )
     v for k, v of output
       
   # set checkboxes
@@ -70,7 +70,7 @@ $ ->
       checkHouse.attr('checked', false) if $(@).is ':not(:checked)'
       checkHouse.click() if checkHouse.is(':not(:checked)') and checkChars.filter(':checked').length is checkChars.length
       m = $(@).attr('id').match /char_([0-9]+)_([0-9]+)/
-      if $(@).is ':checked' then output[$(@).attr('id')] = houses[parseInt(m[1])]['characters'][parseInt(m[2])] else delete output[$(@).attr('id')]
+      if $(@).is ':checked' then output[$(@).attr('id')] = Houses[parseInt(m[1])]['Characters'][parseInt(m[2])] else delete output[$(@).attr('id')]
       clearTimeout token
       token = timeout 50, -> console.log do getOutput #********** SEND DATA HERE **********#
         
@@ -93,9 +93,11 @@ $ ->
         
   # Initialize
   # ----------------------------------------
-  $.get 'api/get/characters', (d) -> characters = JSON.parse(d)
-  $.get 'api/get/houses',     (d) -> houses     = JSON.parse(d)
-  $.get 'api/get/moves',      (d) -> moves      = JSON.parse(d)
+  $.get 'api/get/characters', (d) -> Characters = JSON.parse(d)
+  $.get 'api/get/houses',     (d) -> Houses     = JSON.parse(d)
+  $.get 'api/get/moves',      (d) -> Moves      = JSON.parse(d)
+  $.get 'api/get/places',     (d) -> Places     = JSON.parse(d)
+  $.get 'api/get/episodes',   (d) -> Episodes   = JSON.parse(d)
   
   do sortItems
   do updateSidebar
