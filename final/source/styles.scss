@@ -1,0 +1,16 @@
+* { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; margin: 0; padding: 0; }  
+body { padding-right: 250px; background: #FFF; font: 14px Georgia; }
+.wrapper { position: absolute; top: 50%; left: 50%; border-radius: 2px; overflow: hidden; width: 1150px; height: 650px; margin: -325px 0 0 -575px; background: #fff; box-shadow: 0 0 15px rgba(0,0,0,.1); }
+.wrapper:after { content: ''; display: block; clear: both; }
+.map-wrapper { float: left; width: 900px; height: 650px; background: #fff url('map.png') no-repeat; }
+.sidebar { float: right; width: 250px; height: 650px; overflow: auto; background: #1d1c1c; color: #fff; text-align: left; box-shadow: inset 1px 0 5px rgba(0,0,0,.8); }
+.sidebar-item-char, .sidebar-item-house { display: block; height: 50px; line-height: 40px; padding: 2px 15px 8px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; border-bottom: 1px solid #000; box-shadow: inset 0 -1px 3px rgba(255,255,255,.2); }
+.sidebar-item-char { padding-left: 30px; }
+.sidebar-item-house { text-transform: uppercase; }
+.sidebar img { vertical-align: middle; }
+.sidebar-item-char img { margin-right: 1em; border: 2px solid #333333; border-radius: 100%; box-shadow: 0 0 3px rgba(0,0,0,.4), inset 0 1px 2px rgba(0,0,0,.8); }
+.sidebar-item-char input + span,
+.sidebar-item-house > input + span { display: inline-block; width: 12px; height: 12px; margin-right: 18px; background: url('checkbox.png') left top no-repeat; }
+.sidebar-item-char input:checked + span,
+.sidebar-item-house > input:checked + span { background-position: left bottom; }
+.sidebar input[type="checkbox"] { display: none; }

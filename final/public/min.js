@@ -19,10 +19,10 @@
       return setTimeout(c, t);
     };
     houseTPL = function(v) {
-      return '<li class="sidebar-item-house"><strong><label><input type="checkbox" id="house_' + v.i + '" class="sidebar-check-house">' + v.name + '</label></strong><ul></ul></li>';
+      return '<li><label class="sidebar-item-house"><input type="checkbox" id="house_' + v.i + '" class="sidebar-check-house"><span></span>' + v.name + '</label><ul></ul></li>';
     };
     charTPL = function(v) {
-      return '<li class="sidebar-item-char"><label><input type="checkbox" id="char_' + v.i + '_' + v.j + '" class="sidebar-check-char" data-name="' + v.name + '">' + v.name + ' <img src="//drive.google.com/uc?export=download&confirm=no_antivirus&id=' + v.img + '" width="20" height="20"></label></li>';
+      return '<li class="sidebar-item-char"><label><input type="checkbox" id="char_' + v.i + '_' + v.j + '" class="sidebar-check-char" data-name="' + v.name + '"><span></span><img src="//drive.google.com/uc?export=download&confirm=no_antivirus&id=' + v.img + '" width="40" height="40"> ' + v.name + '</label></li>';
     };
     sortItems = function() {
       var c, h, sort, _i, _j, _len, _len1;
@@ -104,7 +104,7 @@
       $('.sidebar-check-house').on('change', function() {
         var v;
         v = $(this).is(':checked');
-        return $(this).parents('.sidebar-item-house').find('input').not(this).each(function() {
+        return $(this).parents('li').find('input').not(this).each(function() {
           this.checked = v;
           return $(this).change();
         });
@@ -112,7 +112,7 @@
       token = false;
       return $('.sidebar-check-char').on('change', function() {
         var checkChars, checkHouse, m, parent;
-        parent = $(this).parents('.sidebar-item-house');
+        parent = $(this).parents('li');
         checkHouse = parent.find('.sidebar-check-house');
         checkChars = parent.find('.sidebar-check-char');
         if ($(this).is(':not(:checked)')) {
