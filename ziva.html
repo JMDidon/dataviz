@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <style>*{margin:0;padding:0;}div{position:absolute;top:40px;left:40px;padding:10px;background:black;color:white}
+  </style>
+ <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+
+</head>
+<body>
+ 
+  
+<style>
+
+path  {
+  fill: none;
+  stroke: #000;
+  stroke-width: 3px;
+}
+
+</style>
+  <div id="mon graph">
+
+    <SPAN style="position: absolute; top: 50 px; left: 100 px;">
+
+    <script>
+
+
+
+        var points = [
+          [900, 200],
+          [580, 400],
+          [680, 100],
+          [780, 300],
+          [180, 300],
+          [280, 100],
+          [380, 400],
+          [80, 120],
+          [610, 190],
+          [710, 390],
+          [100, 320],
+          [680, 130],
+          [910, 490]
+        ];
+
+
+
+        //appel json
+
+
+        // d3.json("GOT/api/get/places", function(error, graph) {
+
+        //       $.each(graph,function(index,value){
+ 
+        //       console.log(value)
+  
+        //        value.x = graph[index].source;
+        //        value.y = graph[index].target;
+
+
+
+        function transition(path) {
+          path.transition()
+              .duration(30500)
+              .attrTween("stroke-dasharray", tweenDash)
+              .each("end", function() { d3.select(this).call(transition); });
+        }
+
+        function tweenDash() {
+          var l = this.getTotalLength(),
+              i = d3.interpolateString("0," + l, l + "," + l);
+          return function(t) { return i(t); };
+        }
+
+        var line = d3.svg.line()
+            .tension(0) 
+            .interpolate("cardinal-closed");
+
+        var svg = d3.select("body").append("svg")
+            .datum(points)
+            .attr("width", 1080)
+            .attr("height", 500);
+
+        svg.append("path")
+            .style("stroke", "#ddd")
+            .style("stroke-dasharray", "4,4")
+            .attr("d", line);
+
+        svg.append("path")
+            .attr("d", line)
+            .call(transition);
+
+
+// }
+// });
+
+
+
+
+    </script>
+  </SPAN>
+
+</div>
+
+  
+  <SPAN style="position: absolute; top: 30 px; left: 100px;width: 103px; height: 61px">
+     
+  </SPAN>
+ 
