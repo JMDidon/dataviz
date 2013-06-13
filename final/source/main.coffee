@@ -20,8 +20,8 @@ $ ->
 
   # Templates
   # ----------------------------------------
-  houseTPL = (v) -> '<li><label class="sidebar-item-house"><input type="checkbox" id="house_'+v.i+'" class="sidebar-check-house"><span></span>'+v.name+'</label><ul></ul></li>'
-  charTPL  = (v) -> '<li class="sidebar-item-char"><label><input type="checkbox" id="char_'+v.i+'_'+v.j+'" class="sidebar-check-char" data-name="'+v.name+'"><span></span><img src="//drive.google.com/uc?export=download&confirm=no_antivirus&id='+v.img+'" width="40" height="40"> '+v.name+'</label></li>'
+  houseTPL = (v) -> '<li><input type="checkbox" id="house_'+v.i+'" class="sidebar-check-house"><label for="house_'+v.i+'" class="sidebar-item-house"><img src="//drive.google.com/uc?export=download&confirm=no_antivirus&id='+v.img+'"> '+v.name+'</label><ul></ul></li>'
+  charTPL  = (v) -> '<li><input type="checkbox" id="char_'+v.i+'_'+v.j+'" class="sidebar-check-char" data-name="'+v.name+'"><label for="char_'+v.i+'_'+v.j+'" class="sidebar-item-char"><label><img src="//drive.google.com/uc?export=download&confirm=no_antivirus&id='+v.img+'" width="40" height="40"> '+v.name+'</label></li>'
 
 
 
@@ -41,7 +41,7 @@ $ ->
   # update sidebar
   updateSidebar = ->
     for h, i in houses
-      house_item = $ houseTPL { i: i, name: h['name'] }
+      house_item = $ houseTPL { i: i, name: h['name'], img: h['image'] }
       $( charTPL { i: i, j: j, name: c['name'], img: c['image'] } ).appendTo house_item.children('ul') for c, j in h['characters']
       house_item.appendTo sidebar
 
@@ -80,7 +80,7 @@ $ ->
     filter.on 'keyup', -> 
       v = @.value.toLowerCase()
       $('.sidebar-check-char').each ->
-        parent = $(@).parents('.sidebar-item-char')
+        parent = $(@).parent()
         if @.dataset.name.toLowerCase().indexOf(v) > -1 then do parent.slideDown else do parent.slideUp
 
   # select/deselect all

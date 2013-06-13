@@ -19,10 +19,10 @@
       return setTimeout(c, t);
     };
     houseTPL = function(v) {
-      return '<li><label class="sidebar-item-house"><input type="checkbox" id="house_' + v.i + '" class="sidebar-check-house"><span></span>' + v.name + '</label><ul></ul></li>';
+      return '<li><input type="checkbox" id="house_' + v.i + '" class="sidebar-check-house"><label for="house_' + v.i + '" class="sidebar-item-house"><img src="//drive.google.com/uc?export=download&confirm=no_antivirus&id=' + v.img + '"> ' + v.name + '</label><ul></ul></li>';
     };
     charTPL = function(v) {
-      return '<li class="sidebar-item-char"><label><input type="checkbox" id="char_' + v.i + '_' + v.j + '" class="sidebar-check-char" data-name="' + v.name + '"><span></span><img src="//drive.google.com/uc?export=download&confirm=no_antivirus&id=' + v.img + '" width="40" height="40"> ' + v.name + '</label></li>';
+      return '<li><input type="checkbox" id="char_' + v.i + '_' + v.j + '" class="sidebar-check-char" data-name="' + v.name + '"><label for="char_' + v.i + '_' + v.j + '" class="sidebar-item-char"><label><img src="//drive.google.com/uc?export=download&confirm=no_antivirus&id=' + v.img + '" width="40" height="40"> ' + v.name + '</label></li>';
     };
     sortItems = function() {
       var c, h, sort, _i, _j, _len, _len1;
@@ -52,7 +52,8 @@
         h = houses[i];
         house_item = $(houseTPL({
           i: i,
-          name: h['name']
+          name: h['name'],
+          img: h['image']
         }));
         _ref = h['characters'];
         for (j = _j = 0, _len1 = _ref.length; _j < _len1; j = ++_j) {
@@ -139,7 +140,7 @@
         v = this.value.toLowerCase();
         return $('.sidebar-check-char').each(function() {
           var parent;
-          parent = $(this).parents('.sidebar-item-char');
+          parent = $(this).parent();
           if (this.dataset.name.toLowerCase().indexOf(v) > -1) {
             return parent.slideDown();
           } else {
