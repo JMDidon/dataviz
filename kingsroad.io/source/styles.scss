@@ -5,7 +5,7 @@ $height: 650px;
 body { background: #FFF; font: 14px 'ff-meta-serif-web-pro', Georgia; background: #000 url('dark_wall.png'); -webkit-font-smoothing: antialiased; }
 .hide { display: none; }
 
-.title { margin-top: 50px; font: 24px/30px 'trajan-pro-3'; color: #E0E0E0; text-align: center; text-shadow: 0 0 3px rgba(0,0,0,.8); }
+.title { margin-top: 50px; font: 30px/30px 'trajan-pro-3'; color: #E0E0E0; text-align: center; text-shadow: 0 0 3px rgba(0,0,0,.8); }
 .episodes { font: 14px/20px 'trajan-pro-3'; text-align: center; color: #7A7A7A; }
 .episodes a { color: #CACACA; text-decoration: underline; }
 
@@ -15,12 +15,12 @@ body { background: #FFF; font: 14px 'ff-meta-serif-web-pro', Georgia; background
 
 .map svg { position: absolute; top: 0; bottom: 0; left: 0; right: 0; }
 .map-pt { cursor: pointer; z-index: 10; position: absolute; top: 0; left: 0; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 100%; border: 2px solid #000; background: #FFF; }
-.map-pt-box { display: none; position: absolute; top: -50px; left: 50%; margin-left: -115px; padding: 15px; font-size: 10px; width: 230px; background: rgba(0,0,0,.8); color: #FFF; }
+.map-pt-box { display: none; position: absolute; top: -20px; left: 50%; margin-left: -125px; padding: 15px; font-size: 10px; width: 250px; background: rgba(0,0,0,.8); color: #FFF; }
 .map-pt-box:after { content: ''; display: block; clear: both; }
 .map-pt-name { font: 14px 'trajan-pro-3'; }
 .map-pt-box a { color: #FFF; text-decoration: none; }
 .map-pt-box a:hover { text-decoration: underline; }
-.map-pt-box > figure { float: left; margin: 5px; text-align: center; }
+.map-pt-box > figure { float: left; width: 45px; margin: 5px; text-align: center; }
 .map-pt:hover { z-index: 30; }
 .map-pt:hover > .map-pt-box { display: block; }
 .map-pt-box .photo.dead { opacity: .4; }

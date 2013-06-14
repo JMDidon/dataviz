@@ -33,7 +33,7 @@ $ ->
   # ----------------------------------------
   houseTPL      = (v) -> '<li><input type="checkbox" id="house_'+v.i+'" class="sidebar-check-house"><label for="house_'+v.i+'" class="sidebar-item-house"><img src="//drive.google.com/uc?export=download&confirm=no_antivirus&id='+v.img+'"> '+v.name+'</label><ul></ul></li>'
   charTPL       = (v) -> '<li><input type="checkbox" id="char_'+v.i+'_'+v.j+'" class="sidebar-check-char" data-name="'+v.name+'"><label for="char_'+v.i+'_'+v.j+'" class="sidebar-item-char"><label><img src="//drive.google.com/uc?export=download&confirm=no_antivirus&id='+v.img+'" width="40" height="40" class="photo" style="border-color:'+v.color+'"> '+v.name+'</label></li>'
-  charPointTPL  = (v) -> '<figure><a href="'+v.url+'" target="_blank"><img src="//drive.google.com/uc?export=download&confirm=no_antivirus&id='+v.img+'" width="40" height="40" class="photo '+v.dead+'" style="border-color:'+v.color+'" title="'+v.name+'"><figcaption>'+v.episode+'</figcaption></a></figure>'
+  charPointTPL  = (v) -> '<figure><a href="'+v.url+'" target="_blank"><img src="//drive.google.com/uc?export=download&confirm=no_antivirus&id='+v.img+'" width="40" height="40" class="photo '+v.dead+'" style="border-color:'+v.color+'" title="'+v.name+'"><figcaption>'+(if v.dead then 'ø' else '')+' '+v.episode+'</figcaption></a></figure>'
   episodesTPL   = (v) -> v.first.id+': <a href="'+v.first.url+'" target="_blank">'+v.first.name+'</a> ~ '+v.last.id+': <a href="'+v.last.url+'" target="_blank">'+v.last.name+'</a>'
   
   
