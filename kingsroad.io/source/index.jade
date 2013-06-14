@@ -1,0 +1,36 @@
+doctype 5
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    title Kingsroad.io
+    link(rel="stylesheet", href="public/min.css")
+    script(src="//use.typekit.net/wfs4ufo.js")
+    script
+      try{Typekit.load();}catch(e){}
+    style
+      path { fill: none; stroke: #000; stroke-width: 2px; }
+    
+  body
+    
+    header
+      h1.title Kingsroad.io
+      h2.episodes#episodes
+    
+    section.wrapper 
+      div.map#map
+      div.timeline#timeline
+        div.cursor#cursor_start
+        div.cursor#cursor_end
+      
+      aside.sidebar
+        div.sidebar-filter
+          label.hide(for="sidebar-filter") Filter
+          input#sidebar-filter(type="text",data-placeholder="Search a character")
+        a.sidebar-toggle#sidebar-toggler(href="#") Toggle all
+        ul#sidebar-wrapper.sidebar-values
+      
+    script(src="//code.jquery.com/jquery-latest.min.js")
+    script(src="//d3js.org/d3.v3.min.js")
+    script(src="public/jquery-ui-1.10.3.custom.min.js")
+    script(src="public/min.js")
+    

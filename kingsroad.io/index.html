@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Kingsroad.io</title>
+    <link rel="stylesheet" href="public/min.css">
+    <script src="//use.typekit.net/wfs4ufo.js"></script>
+    <script>try{Typekit.load();}catch(e){}</script>
+    <style>
+      path { fill: none; stroke: #000; stroke-width: 2px; }
+      
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1 class="title">Kingsroad.io</h1>
+      <h2 id="episodes" class="episodes"></h2>
+    </header>
+    <section class="wrapper"> 
+      <div id="map" class="map"></div>
+      <div id="timeline" class="timeline">
+        <div id="cursor_start" class="cursor"></div>
+        <div id="cursor_end" class="cursor"></div>
+      </div>
+      <aside class="sidebar">
+        <div class="sidebar-filter">
+          <label for="sidebar-filter" class="hide">Filter</label>
+          <input id="sidebar-filter" type="text" data-placeholder="Search a character">
+        </div><a id="sidebar-toggler" href="#" class="sidebar-toggle">Toggle all</a>
+        <ul id="sidebar-wrapper" class="sidebar-values"></ul>
+      </aside>
+    </section>
+    <script src="//code.jquery.com/jquery-latest.min.js"></script>
+    <script src="//d3js.org/d3.v3.min.js"></script>
+    <script src="public/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="public/min.js"></script>
+  </body>
+</html>
